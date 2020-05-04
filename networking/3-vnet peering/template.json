@@ -1,0 +1,112 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnet1_name": {
+            "defaultValue": "az-104-mod04-demo-vnet1",
+            "type": "String"
+        },
+        "vnet2_name": {
+            "defaultValue": "az-104-mod04-demo-vnet2",
+            "type": "String"
+        },
+        "location": {
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2019-12-01",
+            "name": "[parameters('vnet1_name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "owner": "etienne_brouillard",
+                "project": "az104",
+                "env": "demo"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.10.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "vnet1_subnet1",
+                        "properties": {
+                            "addressPrefix": "10.10.0.0/24",
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Enabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('vnet1_name'), '/vnet1_subnet1')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnet1_name'))]"
+            ],
+            "properties": {
+                "addressPrefix": "10.10.0.0/24",
+                "delegations": [],
+                "privateEndpointNetworkPolicies": "Enabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2019-12-01",
+            "name": "[parameters('vnet2_name')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "owner": "etienne_brouillard",
+                "project": "az104",
+                "env": "demo"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.11.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "vnet2_subnet2",
+                        "properties": {
+                            "addressPrefix": "10.11.0.0/24",
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Enabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2019-12-01",
+            "name": "[concat(parameters('vnet2_name'), '/vnet2_subnet2')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnet2_name'))]"
+            ],
+            "properties": {
+                "addressPrefix": "10.11.0.0/24",
+                "delegations": [],
+                "privateEndpointNetworkPolicies": "Enabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+            }
+        }
+    ]
+}
