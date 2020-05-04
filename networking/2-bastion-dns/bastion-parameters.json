@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "uksouth"
+        },
+        "networkInterfaceName": {
+            "value": "az104-mod04-demo-bas323"
+        },
+        "subnetName": {
+            "value": "dmz"
+        },
+        "virtualNetworkId": {
+            "value": null
+        },
+        "publicIpAddressName": {
+            "value": "az104-mod04-demo-bastionvm-uks-ip"
+        },
+        "publicIpAddressType": {
+            "value": "Dynamic"
+        },
+        "publicIpAddressSku": {
+            "value": "Basic"
+        },
+        "virtualMachineName": {
+            "value": "az104-mod04-demo-bastionvm-uks"
+        },
+        "virtualMachineRG": {
+            "value": "az104-mod04-demo-uks"
+        },
+        "osDiskType": {
+            "value": "Premium_LRS"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_B1ms"
+        },
+        "adminUsername": {
+            "value": "ubuntu"
+        },
+        "adminPublicKey": {
+            "value": null
+        }
+    }
+}
